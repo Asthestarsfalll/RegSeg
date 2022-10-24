@@ -1,2 +1,1 @@
-## A clean version implmentation of RegSeg(uncompleted)
-
+## A clean version implmentation of RegSeg

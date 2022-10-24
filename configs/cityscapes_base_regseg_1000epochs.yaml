@@ -1,0 +1,60 @@
+
+#MODEL:
+model_type: base
+num_classes: 19
+ignore_value: 255
+
+#OPTIM:
+max_epochs: 1000
+optim_type : sgd
+optim_cfg:
+  lr: 0.05
+  momentum: 0.9
+  weight_decay: 0.0001
+bn_weight_decay: False
+
+lr_scheduler: poly
+lr_scheduler_cfg:
+  poly_power: 0.9
+  warmup_iters: 3000
+  warmup_factor: 0.1
+
+#TRAIN:
+mixed_precision: True
+RNG_seed: 0
+loss_type: cross_entropy
+loss_cfg:
+  ignore_index: 255
+
+eval_while_train: True
+exclude_classes: [14,15,16]
+tensorboard_dir: tensorboard
+
+#dataset
+dataset_type: cityscapes
+dataset_cfg:
+  root: cityscapes_dataset
+  batch_size: 8
+  train_min_size: 400
+  train_max_size: 1600
+  train_crop_size: [768,768]
+  val_input_size: 1024
+  val_label_size: 1024
+  aug_mode: randaug_reduced
+  num_workers: 8
+  class_uniform_pct: 0.5
+  train_split: train
+  val_split: val
+  ignore_value: 255
+
+
+max_eval: 600
+train_print_every: 50
+
+#checkpoint
+pretrained_path: ''
+save_every_k_epochs: 25
+save_last_k_epochs: 30
+save_dir: checkpoints
+log_dir: training_log
+save_name: cityscapes_exp48_decoder26_1000_epochs
