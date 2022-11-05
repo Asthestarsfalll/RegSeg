@@ -15,14 +15,8 @@ from tensorboardX import SummaryWriter
 
 from config import Config
 from metrics import ConfusionMatrix
-from train_utils import (
-    get_data_loader,
-    get_epochs_to_save,
-    get_loss,
-    get_lr_scheduler,
-    get_model,
-    get_optimizer,
-)
+from train_utils import (get_data_loader, get_epochs_to_save, get_loss,
+                         get_lr_scheduler, get_model, get_optimizer)
 
 logger = logging.getLogger()
 
@@ -212,13 +206,14 @@ def train(config, args, writer):
             writer.add_scalar("accuracy", acc_global, global_step=epoch)
             if mIoU > best_miou:
                 best_miou = mIoU
-                torch.save(
-                    model.state_dict(),
-                    osp.join(
-                        config.save_dir,
-                        f"epoch{epoch}_iou{mIoU}_acc{acc_global}_reduced{reduced_iou}.pth",
-                    ),
-                )
+                if mIoU > 75:
+                    torch.save(
+                        model.state_dict(),
+                        osp.join(
+                            config.save_dir,
+                            f"epoch{epoch}_iou{mIoU}_acc{acc_global}_reduced{reduced_iou}.pth",
+                        ),
+                    )
             if reduced_iou > best_reduced_miou:
                 best_reduced_miou = reduced_iou
             if acc_global > best_global_accuracy:

@@ -8,7 +8,7 @@ ignore_value: 255
 max_epochs: 1000
 optim_type : sgd
 optim_cfg:
-  lr: 0.05
+  lr: 0.5
   momentum: 0.9
   weight_decay: 0.0001
 bn_weight_decay: False
@@ -30,11 +30,17 @@ eval_while_train: True
 exclude_classes: [14,15,16]
 tensorboard_dir: tensorboard
 
+# #benchmark
+# warmup_iter: 10
+# num_iter: 100
+# benchmark_loader: True
+# benchmark_model: True
+
 #dataset
 dataset_type: cityscapes
 dataset_cfg:
-  root: cityscapes_dataset
-  batch_size: 8
+  root: /home/disk2/ray/datasets/cityscapes
+  batch_size: 32
   train_min_size: 400
   train_max_size: 1600
   train_crop_size: [768,768]
@@ -49,7 +55,7 @@ dataset_cfg:
 
 
 max_eval: 600
-train_print_every: 175
+train_print_every: 50
 
 #checkpoint
 pretrained_path: ''
